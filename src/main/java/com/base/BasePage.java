@@ -49,7 +49,7 @@ public abstract class BasePage {
         File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String fileName = "screenshot"+ System.currentTimeMillis();
         try{
-            FileHandler.copy(file, new File("./screenshot/"+fileName+".png"));
+            FileHandler.copy(file, new File("src/test/resources/screenshots/"+fileName+".png"));
         }catch(Exception ex){
             ex.printStackTrace();
         }   
