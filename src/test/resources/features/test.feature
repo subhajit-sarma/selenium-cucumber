@@ -1,4 +1,4 @@
-@test1 @ui
+@test1 @ui @test
 Feature: Login functionality
 
 Scenario: First test
