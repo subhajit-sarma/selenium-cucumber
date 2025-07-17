@@ -15,10 +15,16 @@ public class DriverManager {
 
     public static void setDriver(String browserName){
         WebDriver driverInstance;
-        if(browserName.equals("safari")){
+        String browser;
+        if(System.getProperty("browser")!=null){
+            browser = System.getProperty("browser");
+        }else {
+            browser = browserName;
+        }
+        if(browser.equals("safari")){
             driverInstance = new SafariDriver();
         }else{
-//            System.setProperty("webdriver.chrome.driver","driver/chromedriver");
+            System.setProperty("webdriver.chrome.driver","driver/chromedriver.exe");
              ChromeOptions options = new ChromeOptions();
              options.addArguments("--headless");
             driverInstance = new ChromeDriver(options);
