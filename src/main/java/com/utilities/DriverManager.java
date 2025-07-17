@@ -2,6 +2,7 @@ package com.utilities;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.safari.SafariDriver;
 
 public class DriverManager {
@@ -17,11 +18,10 @@ public class DriverManager {
         if(browserName.equals("safari")){
             driverInstance = new SafariDriver();
         }else{
-            System.out.println(System.getProperty("user.dir"));
-            System.setProperty("webdriver.chrome.driver","/Users/ssarma/Documents/Personal/Jobs/selenium-cucumber/driver/chromedriver");
-            // ChromeOptions options = new ChromeOptions();
-            // options.addArguments("headless=false");
-            driverInstance = new ChromeDriver();
+//            System.setProperty("webdriver.chrome.driver","driver/chromedriver");
+             ChromeOptions options = new ChromeOptions();
+             options.addArguments("--headless");
+            driverInstance = new ChromeDriver(options);
         }
             
         driver.set(driverInstance);
