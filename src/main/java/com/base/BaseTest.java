@@ -1,14 +1,13 @@
 package com.base;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.utilities.DriverManager;
 import com.utilities.ReportUtilities;
-
 import io.cucumber.java.After;
 import io.cucumber.java.AfterStep;
 // import io.cucumber.java.After;
@@ -31,6 +30,11 @@ public class BaseTest {
             node = test.createNode("Starting test");
     
         }
+
+        @After()
+        public void afterScenario(){
+            reports.flush();
+        }
     
         @AfterStep
         public void afterStep(Scenario scenario){
@@ -38,22 +42,14 @@ public class BaseTest {
                 node.pass("fail");
             }else{
                 node.pass("Pass");
+                final byte[] screenShot = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
+                scenario.attach(screenShot, "image/png", scenario.getName());
             }
-        }
-    
-        @After()
-        public void afterScenario(){
-            reports.flush();
         }
         
         @Before("@ui")
         public void setUp(){
             System.out.println("initializing driver");
-            System.out.flush();
-            // System.setProperty("webdriver.chrome.driver", "/users/ssarma/Downloads/chromedriver/chromedriver");
-            
-            // wait = new WebDriverWait(driver,30);
-            // driver.manage().window().maximize();
             DriverManager.setDriver("chrome");
             DriverManager.getDriver().manage().window().maximize();
 
@@ -63,12 +59,6 @@ public class BaseTest {
         public void tearDown(){
             DriverManager.closeDriver();
         }
-
-
-        // public static WebDriver getDriver(){
-        //     System.out.println("getting driver");
-        //     return driver;
-        // }
     
         public static ExtentTest getNode(){
             return node;

@@ -1,5 +1,6 @@
 package steps;
 
+import com.base.BaseTest;
 // import com.base.BaseTest;
 import com.pages.HandleWindowsPage;
 import com.utilities.DriverManager;
@@ -14,7 +15,7 @@ public class WindowHandleSteps {
     @Given("I check windows")
     public void iCheckWindows(){
         System.out.println("current thread for check windows"+Thread.currentThread());
-        // BaseTest.getNode().pass("I check windows");
+        BaseTest.getNode().pass("I check windows");
         windowsPage.navigateToWindowUrl();
         windowsPage.checkForNewTab();
     }

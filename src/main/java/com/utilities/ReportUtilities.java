@@ -9,7 +9,7 @@ public class ReportUtilities {
 
     public static ExtentReports getInstance(){
         if(extent == null){
-            ExtentSparkReporter spark = new ExtentSparkReporter("target/exten-report.html");
+            ExtentSparkReporter spark = new ExtentSparkReporter("target/extent-report.html");
             extent = new ExtentReports();
             extent.attachReporter(spark);
         }
