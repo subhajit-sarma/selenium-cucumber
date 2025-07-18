@@ -1,7 +1,6 @@
-@test2 @ui @test
+@test1 @ui @test
 Feature: Login functionality
 
-
-Scenario: second test
-Given I navigate to alert page and click on ok
-Given I check windows
+Scenario: First test
+# Given I log in to the website
+Given I test the website

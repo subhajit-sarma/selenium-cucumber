@@ -1,16 +1,13 @@
 package com.pages;
 
 import java.util.concurrent.TimeUnit;
-
-// import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-// import java.util.logging.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.base.BasePage;
+import com.utilities.ConfigReader;
 
 public class TestElementsPage extends BasePage{
 
@@ -21,7 +18,9 @@ public class TestElementsPage extends BasePage{
     }
 
     public void navigateToTestUrl(){
-        navigateToUrl("https://ultimateqa.com/simple-html-elements-for-automation/");
+        
+        // navigateToUrl("https://ultimateqa.com/simple-html-elements-for-automation/");
+        navigateToUrl(ConfigReader.getInstance().getProperty("test1Url"));
     }
 
     public void clickOnDropDown(){

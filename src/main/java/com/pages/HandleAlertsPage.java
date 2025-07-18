@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.logging.*;
 import com.base.BasePage;
+import com.utilities.ConfigReader;
 
 // import io.cucumber.java.cs.Ale;
 
@@ -20,7 +21,8 @@ public class HandleAlertsPage extends BasePage{
     }
 
     public void navigateToAlertPage(){
-        navigateToUrl("https://demo.automationtesting.in/Alerts.html");
+        // navigateToUrl("https://demo.automationtesting.in/Aleclearrts.html");
+        navigateToUrl(ConfigReader.getInstance().getProperty("test2Url"));
     }
     
     public void alerWithtOk(){
