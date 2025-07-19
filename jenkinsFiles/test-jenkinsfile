@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Hello World'
+                echo 'Git checkout'
+                git branch: 'main', credentialsId: 'f6c37d7d-7893-45d3-ba13-955a9cc8a470', url: 'https://github.com/subhajit-sarma/selenium-cucumber.git'
             }
         }
         stage("Execution"){
