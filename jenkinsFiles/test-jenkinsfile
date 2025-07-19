@@ -11,6 +11,7 @@ pipeline {
         stage("Execution"){
             steps{
                 echo "Executing test"
+                bat 'mvn clean install  -Dbrowser=${browser}  -Dcucumber.options="--tags ${tag}"'
             }
         }
     }
