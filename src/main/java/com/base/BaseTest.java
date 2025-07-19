@@ -50,7 +50,7 @@ public class BaseTest {
         @Before("@ui")
         public void setUp(){
             System.out.println("initializing driver");
-            DriverManager.setDriver("chrome");
+            DriverManager.setDriver();
             DriverManager.getDriver().manage().window().maximize();
 
         }

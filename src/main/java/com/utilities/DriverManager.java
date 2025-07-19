@@ -13,9 +13,10 @@ public class DriverManager {
         return driver.get();
     }
 
-    public static void setDriver(String browserName){
+    public static void setDriver(){
         WebDriver driverInstance;
         String browser;
+        String browserName = ConfigReader.getInstance().getProperty("browser");
         if(System.getProperty("browser")!=null){
             browser = System.getProperty("browser");
         }else {
