@@ -1,5 +1,7 @@
 package com.base;
 
+import java.net.MalformedURLException;
+
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -50,7 +52,11 @@ public class BaseTest {
         @Before("@ui")
         public void setUp(){
             System.out.println("initializing driver");
-            DriverManager.setDriver();
+            try {
+                DriverManager.setDriver();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
             DriverManager.getDriver().manage().window().maximize();
 
         }
