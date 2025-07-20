@@ -2,17 +2,73 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+
+        stage('Checkout Code') {
             steps {
-                echo 'Git checkout'
-                git branch: 'main', credentialsId: 'f6c37d7d-7893-45d3-ba13-955a9cc8a470', url: 'https://github.com/subhajit-sarma/selenium-cucumber.git'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],              // replace 'main' if needed
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/subhajit-sarma/selenium-cucumber.git',  // your repo URL
+                        credentialsId: 'selenim-repo'        // Jenkins credential ID
+                    ]]
+                ])
             }
         }
-        stage("Execution"){
-            steps{
-                echo "Executing test"
-                bat 'mvn clean install  -Dbrowser=${browser}  -Dcucumber.options="--tags ${tag}"'
+        stage('Copy Code to EC2') {
+            steps {
+                sshagent(['ec2']) {
+                    sh """
+                    rsync -avz --delete --exclude='.git' ./ ubuntu@ec2-3-107-33-244.ap-southeast-2.compute.amazonaws.com:/home/ubuntu/selenium-cucumber
+                    """
+                }
             }
+        }
+        // stage('Fetch Repo on EC2') {
+        //     steps {
+        //         sshagent(['ec2']) {
+        //             sh """
+        //             ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-107-33-244.ap-southeast-2.compute.amazonaws.com '
+        //                 if [ -d /home/ubuntu/selenium-cucumber ]; then
+        //                     cd /home/ubuntu/selenium-cucumber && git pull
+        //                 else
+        //                     git clone subhajit-sarma/selenium-cucumber /home/ubuntu/my-project
+        //                 fi
+        //             '
+        //             """
+        //         }
+        //     }
+        // }
+
+        stage('Build Docker Image on EC2') {
+            steps {
+                sshagent(['ec2']) {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-107-33-244.ap-southeast-2.compute.amazonaws.com '
+                        cd /home/ubuntu/selenium-cucumber &&
+                        docker build -t selenium-tests .
+                    '
+                    """
+                }
+            }
+        }
+
+        stage('Run Docker Image on EC2') {
+            steps {
+                sshagent(['ec2']) {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-107-33-244.ap-southeast-2.compute.amazonaws.com '
+                        docker run --rm --shm-size=2g selenium-tests
+                    '
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Finished all stages on EC2"
         }
     }
 }
