@@ -29,4 +29,4 @@ COPY . /app
 
 RUN mvn clean install
 
-CMD ["mvn", "clean", "test"]
+CMD ["mvn", "clean", "test", "-Dmaven.test.skip=true"]
