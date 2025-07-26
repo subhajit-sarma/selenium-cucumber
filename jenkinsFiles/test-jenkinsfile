@@ -2,19 +2,6 @@ pipeline {
     agent any
 
     stages {
-
-        // stage('Checkout Code') {
-        //     steps {
-        //         checkout([
-        //             $class: 'GitSCM',
-        //             branches: [[name: '*/main']],
-        //             userRemoteConfigs: [[
-        //                 url: 'https://github.com/subhajit-sarma/selenium-cucumber.git',
-        //                 credentialsId: 'selenim-repo'
-        //             ]]
-        //         ])
-        //     }
-        // }
         stage('Copy Code to EC2') {
             steps {
                 sshagent(['ec2']) {
@@ -54,6 +41,7 @@ pipeline {
     post {
         always {
             echo "Finished all stages on EC2"
+            archiveArtifacts artifacts: 'target/extent-report.html', followSymlinks: false
         }
     }
 }
