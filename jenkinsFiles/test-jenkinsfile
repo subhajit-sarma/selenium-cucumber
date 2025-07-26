@@ -32,8 +32,10 @@ pipeline {
                     ssh -o StrictHostKeyChecking=no $ec2_name '
                         docker run --name selenium-container  --shm-size=2g selenium-tests mvn test -Dcucumber.filter.tags="${params.tags}" -Dbrowser="${params.browser}"
                         docker cp selenium-container:/app/target/extent-report.html /home/ubuntu/selenium-cucumber
-                        docker rm selenium-container
+                        // docker rm selenium-container
                     '
+                    """
+                    sh """
                     rsync -avz $ec2_name:/home/ubuntu/selenium-cucumber/target/extent-report.html .
                     """
                 }
