@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sshagent(['ec2']) {
                     sh """
-                    rsync -avz --delete --exclude='.git' ./ ubuntu@ec2-3-107-33-244.ap-southeast-2.compute.amazonaws.com:/home/ubuntu/selenium-cucumber
+                    rsync -avz --delete --exclude='.git' ./ $ec2_name:/home/ubuntu/selenium-cucumber
                     """
                 }
             }
@@ -44,7 +44,7 @@ pipeline {
             steps {
                 sshagent(['ec2']) {
                     sh """
-                    ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-107-33-244.ap-southeast-2.compute.amazonaws.com '
+                    ssh -o StrictHostKeyChecking=no $ec2_name '
                         cd /home/ubuntu/selenium-cucumber &&
                         docker build -t selenium-tests .
                     '
@@ -57,7 +57,7 @@ pipeline {
             steps {
                 sshagent(['ec2']) {
                     sh """
-                    ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-107-33-244.ap-southeast-2.compute.amazonaws.com '
+                    ssh -o StrictHostKeyChecking=no $ec2_name '
                         docker run --rm --shm-size=2g selenium-tests
                     '
                     """
