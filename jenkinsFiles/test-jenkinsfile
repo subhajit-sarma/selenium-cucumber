@@ -3,18 +3,18 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
-            steps {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/subhajit-sarma/selenium-cucumber.git',
-                        credentialsId: 'selenim-repo'
-                    ]]
-                ])
-            }
-        }
+        // stage('Checkout Code') {
+        //     steps {
+        //         checkout([
+        //             $class: 'GitSCM',
+        //             branches: [[name: '*/main']],
+        //             userRemoteConfigs: [[
+        //                 url: 'https://github.com/subhajit-sarma/selenium-cucumber.git',
+        //                 credentialsId: 'selenim-repo'
+        //             ]]
+        //         ])
+        //     }
+        // }
         stage('Copy Code to EC2') {
             steps {
                 sshagent(['ec2']) {
@@ -24,21 +24,6 @@ pipeline {
                 }
             }
         }
-        // stage('Fetch Repo on EC2') {
-        //     steps {
-        //         sshagent(['ec2']) {
-        //             sh """
-        //             ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-107-33-244.ap-southeast-2.compute.amazonaws.com '
-        //                 if [ -d /home/ubuntu/selenium-cucumber ]; then
-        //                     cd /home/ubuntu/selenium-cucumber && git pull
-        //                 else
-        //                     git clone subhajit-sarma/selenium-cucumber /home/ubuntu/my-project
-        //                 fi
-        //             '
-        //             """
-        //         }
-        //     }
-        // }
 
         stage('Build Docker Image on EC2') {
             steps {
