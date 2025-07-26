@@ -31,12 +31,13 @@ pipeline {
                     sh """
                     ssh -o StrictHostKeyChecking=no $ec2_name '
                         docker run --name selenium-container  --shm-size=2g selenium-tests mvn test -Dcucumber.filter.tags="${params.tags}" -Dbrowser="${params.browser}"
-                        docker cp selenium-container:/app/target/extent-report.html /home/ubuntu/selenium-cucumber
-                        // docker rm selenium-container
+                        mkdir -p /home/ubuntu/reports/target
+                        docker cp selenium-container:/app/target/extent-report.html /home/ubuntu/reports/target/extent-report.html
+                        docker rm selenium-container
                     '
                     """
                     sh """
-                    rsync -avz $ec2_name:/home/ubuntu/selenium-cucumber/target/extent-report.html .
+                    rsync -avz $ec2_name:/home/ubuntu/reports/target/extent-report.html .
                     """
                 }
             }
@@ -46,6 +47,7 @@ pipeline {
     post {
         always {
             echo "Finished all stages on EC2"
+            sh 'mkdir -p target && mv extent-report.html target/'
             archiveArtifacts artifacts: 'target/extent-report.html', followSymlinks: false
         }
     }
