@@ -10,8 +10,6 @@ import org.openqa.selenium.WebDriver;
 // import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import com.base.BasePage;
-
 public class HandleWindowsPage extends BasePage {
 
     public HandleWindowsPage(WebDriver driver){

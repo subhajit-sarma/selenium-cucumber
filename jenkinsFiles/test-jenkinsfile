@@ -7,10 +7,10 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: '*/main']],              // replace 'main' if needed
+                    branches: [[name: '*/main']],
                     userRemoteConfigs: [[
-                        url: 'https://github.com/subhajit-sarma/selenium-cucumber.git',  // your repo URL
-                        credentialsId: 'selenim-repo'        // Jenkins credential ID
+                        url: 'https://github.com/subhajit-sarma/selenium-cucumber.git',
+                        credentialsId: 'selenim-repo'
                     ]]
                 ])
             }

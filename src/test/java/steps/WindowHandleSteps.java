@@ -1,6 +1,5 @@
 package steps;
 
-import com.base.BaseTest;
 // import com.base.BaseTest;
 import com.pages.HandleWindowsPage;
 import com.utilities.DriverManager;

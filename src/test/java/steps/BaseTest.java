@@ -1,4 +1,4 @@
-package com.base;
+package steps;
 
 import java.net.MalformedURLException;
 

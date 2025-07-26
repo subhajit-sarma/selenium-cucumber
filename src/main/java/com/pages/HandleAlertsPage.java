@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.logging.*;
-import com.base.BasePage;
+
 import com.utilities.ConfigReader;
 
 // import io.cucumber.java.cs.Ale;
