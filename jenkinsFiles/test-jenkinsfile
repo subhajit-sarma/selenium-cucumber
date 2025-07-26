@@ -58,7 +58,7 @@ pipeline {
                 sshagent(['ec2']) {
                     sh """
                     ssh -o StrictHostKeyChecking=no $ec2_name '
-                        docker run --rm --shm-size=2g selenium-tests
+                        docker run --rm --shm-size=2g selenium-tests mvn test -Dcucumber.filter.tags="${params.tags}" -Dbrowser="${params.browser}"
                     '
                     """
                 }
