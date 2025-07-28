@@ -50,7 +50,7 @@ public class DriverManager {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
-        options.addArguments("--remote-debugging-port=9222"); // Avoid DevToolsActivePort error
+        options.addArguments("--remote-debugging-port=9222");
         options.addArguments("--disable-gpu");
         driverInstance = new ChromeDriver(options);
         // driverInstance = new RemoteWebDriver(new URL("http://localhost:4444/"), capabilities);
