@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.*;
 import org.openqa.selenium.io.FileHandler;
 
@@ -57,6 +58,10 @@ public abstract class BasePage {
 
     public void handleAlert(){
             
+    }
+
+    public void enterText(By by, String value){
+       this.driver.findElement(by).sendKeys(value);
     }
     
 }
