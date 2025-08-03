@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 import com.utilities.ConfigReader;
 import com.utilities.RandomDataGenerator;
+import com.utilities.TestArtifacts;
 
 public class CreateAccountPage extends BasePage {
     private static By firstName = By.id("customer.firstName");
@@ -18,6 +19,8 @@ public class CreateAccountPage extends BasePage {
     private static By userName = By.id("customer.username");
     private static By password = By.id("customer.password");
     private static By confirmPassword = By.id("repeatedPassword");
+    public static String userNameValue = RandomDataGenerator.getRandomUserName(ConfigReader.getInstance().getProperty("bankUserName"));
+    
 
     public CreateAccountPage(WebDriver driver) {
         super(driver);
@@ -37,9 +40,11 @@ public class CreateAccountPage extends BasePage {
         enterText(postalCode, "1234");
         enterText(phone, "456762323");
         enterText(ssn, "122323");
-        enterText(userName, RandomDataGenerator.getRandomUserName(ConfigReader.getInstance().getProperty("bankUserName")));
+        enterText(userName, userNameValue);
         enterText(password, "Welcome123");
         enterText(confirmPassword, "Welcome123");
         click(By.xpath("//input[@value='Register']"));
+        TestArtifacts.set("userName", "userNameValue");
     }
+
 }

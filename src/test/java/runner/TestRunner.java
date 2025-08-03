@@ -10,7 +10,7 @@ import io.cucumber.testng.CucumberOptions;;
     features = "src/test/resources/features",
     glue = {"steps", "com.base"},
     plugin = {"pretty", "html:target/allureReport.html"},
-    tags = "@bank"
+    tags = "@account"
 )
 public class TestRunner extends AbstractTestNGCucumberTests{
     @Override
